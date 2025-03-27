@@ -1,25 +1,28 @@
 <template>
-	<div class="app-sidebar">
+	<div
+		class="app-sidebar"
+		:class="{ 'is-collapse': isCollapse }">
 		<el-menu
 			class="app-sidebar-menu"
 			router
 			:default-active="activeIndex"
 			@select="handleSelect"
+            :collapse-transition="false"
 			:collapse="isCollapse"
 			background-color="#545c64"
 			text-color="#fff"
 			active-text-color="#ffd04b">
 			<!-- <el-submenu index="1">
-				<template slot="title">
-					<i class="el-icon-location"></i>
-					<span slot="title">导航一</span>
-				</template>
-
-				<el-submenu index="1-4">
-					<span slot="title">选项4</span>
-					<el-menu-item index="1-4-1">选项1</el-menu-item>
-				</el-submenu>
-			</el-submenu> -->
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span slot="title">导航一</span>
+                    </template>
+    
+                    <el-submenu index="1-4">
+                        <span slot="title">选项4</span>
+                        <el-menu-item index="1-4-1">选项1</el-menu-item>
+                    </el-submenu>
+                </el-submenu> -->
 			<el-menu-item
 				v-for="item in menus"
 				:key="item.index"
@@ -34,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { Menu, MenuItem, Submenu } from 'element-ui';
 export default {
 	name: 'AppSidebar',
@@ -45,7 +49,6 @@ export default {
 	data() {
 		return {
 			activeIndex: '/app/article',
-			isCollapse: false,
 			menus: [
 				{
 					index: '/app/article',
@@ -60,6 +63,9 @@ export default {
 			],
 		};
 	},
+	computed: {
+		...mapGetters('app', ['isCollapse']),
+	},
 	watch: {
 		$route(to) {
 			this.activeIndex = to.path;
@@ -73,8 +79,12 @@ export default {
 
 <style lang="scss" scoped>
 .app-sidebar {
-	width: 200px;
 	height: 100%;
+    transition: width 0.3s;
+    width: 200px;
+    &.is-collapse {
+        width: 64px;
+    }
 }
 
 .app-sidebar-menu {

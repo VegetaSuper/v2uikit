@@ -43,7 +43,7 @@ export default {
 .app-main {
 	flex: 1;
 	display: flex;
-    flex-direction: column;
+	flex-direction: column;
 
 	.app-content {
 		flex: 1;
