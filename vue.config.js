@@ -19,7 +19,17 @@ module.exports = {
 				changeOrigin: true,
 				pathRewrite: { '^/api': '' },
 			},
-		}
+		},
+	},
+	css: {
+		loaderOptions: {
+			scss: {
+				prependData: `
+                @import "@/assets/scss/now-ui-kit/_variables.scss";
+                @import "@/assets/scss/now-ui-kit/_mixins.scss";
+              `,
+			},
+		},
 	},
 
 	chainWebpack: (config) => {
